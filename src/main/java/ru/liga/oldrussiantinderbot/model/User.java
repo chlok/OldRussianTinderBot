@@ -25,14 +25,14 @@ public class User {
     //сэты из видео, таблички он там делает в ручную
     @ManyToMany
     @JoinTable(
-            name = "this_user_choose",
+            name = "i_was_chosen",
             joinColumns = {@JoinColumn(name = "this_user_id")},
             inverseJoinColumns = {@JoinColumn(name = "choosed_user_id")}
     )
     private Set<User> whoChooseMe = new HashSet<>();
     @ManyToMany
     @JoinTable(
-            name = "this_user_choose",
+            name = "my_choose",
             joinColumns = {@JoinColumn(name = "choosed_user_id")},
             inverseJoinColumns = {@JoinColumn(name = "this_user_id")}
     )
