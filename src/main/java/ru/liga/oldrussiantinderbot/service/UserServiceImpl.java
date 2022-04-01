@@ -11,6 +11,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
