@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.service.UserService;
+import ru.liga.oldrussiantinderbot.utils.Translator;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public class UserRESTController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private Translator translator;
 
     @GetMapping("/users")
     public List<User> getAllEmployees() {
@@ -28,8 +31,12 @@ public class UserRESTController {
         userService.saveUser(user);
         return user;
     }
+
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user){
+    public User updateUser(@RequestBody User user) {
+        user.setName(translator.translateInOldLanguage(user.getName()));
+        user.setDescription(translator.translateInOldLanguage(user.getDescription()));
+        user.setSex(translator.translateInOldLanguage(user.getSex()));
         userService.saveUser(user);
         return user;
     }
