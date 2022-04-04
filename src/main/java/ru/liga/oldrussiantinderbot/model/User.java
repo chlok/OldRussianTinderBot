@@ -15,14 +15,16 @@ import java.util.Set;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     //потом заменим на энамы, яхз как их в пост запросе передать
     private String sex;
-
     private Integer age;
     private String description;
+
+    private String partnerSex;
+
     //сэты из видео, таблички он там делает в ручную
     @ManyToMany
     @JoinTable(
