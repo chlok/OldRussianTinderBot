@@ -15,8 +15,7 @@ import java.util.Set;
 @Entity
 public class User {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     //потом заменим на энамы, яхз как их в пост запросе передать
     private String sex;
@@ -39,6 +38,5 @@ public class User {
             joinColumns = {@JoinColumn(name = "choosed_user_id")},
             inverseJoinColumns = {@JoinColumn(name = "this_user_id")}
     )
-
     private Set<User> whoIChose = new HashSet<>();
 }

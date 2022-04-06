@@ -22,7 +22,7 @@ public class UserRESTController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
+    public User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
 
@@ -42,7 +42,7 @@ public class UserRESTController {
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable int id) {
+    public String deleteUser(@PathVariable Long id) {
         User user = userService.getUser(id);
         userService.deleteUser(user.getId());
         return "User with ID = " + id + " was deleted";
