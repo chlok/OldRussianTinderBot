@@ -7,13 +7,12 @@ import ru.liga.oldrussiantinderbot.repository.WordsRepository;
 
 import java.util.Arrays;
 import java.util.List;
-
 @Component
 public class Translator {
 
-    public static final String TEXT_DELIMITER = "[ \\n]";
     private static final List<Character> VOWELS = Arrays.asList('а', 'о', 'э', 'е',
             'и', 'ы', 'у', 'ё', 'ю', 'я', 'й');
+    public static final String TEXT_DELIMITER = "[ \\n]";
 
     public String translateInOldLanguage(String text) {
         String[] textArray = text.split(TEXT_DELIMITER);
@@ -22,19 +21,19 @@ public class Translator {
         FileRepository namesRepository = new NamesRepository();
         FileRepository wordsRepository = new WordsRepository();
         for (String string : textArray) {
-            Character lastChar = string.charAt(string.length() - 1);
-            if (Character.toString(lastChar).matches("\\p{Punct}")) {
+            Character lastChar = string.charAt(string.length()-1);
+            if (Character.toString(lastChar).matches("\\p{Punct}")){
                 string = string.substring(0, string.length() - 1);
             } else {
                 lastChar = null;
             }
             string = replaceI(addHardSign(string));
-            string = changeWordWithReplacedLetter('Ф', 'Ѳ', namesRepository, string);
+            string = changeWordWithReplacedLetter('Ф','Ѳ', namesRepository, string);
             string = changeWordWithReplacedLetter('ф', 'ѳ', namesRepository, string);
             string = changeWordWithReplacedLetter('е', 'ѣ', wordsRepository, string);
             string = changeWordWithReplacedLetter('Е', 'ѣ', wordsRepository, string);
             sb.append(string);
-            if (lastChar != null) {
+            if (lastChar!=null) {
                 sb.append(lastChar);
             }
             sb.append(" ");
@@ -43,22 +42,18 @@ public class Translator {
     }
 
     private String addHardSign(String string) {
-        if (!Character.isAlphabetic(string.charAt(string.length() - 1))) {
-            return string;
-        }
         for (char letter : VOWELS) {
             if (string.endsWith(String.valueOf(letter))) {
                 return string;
             }
         }
-        return string + "ъ";
+        return string  + "ъ";
     }
 
     private String replaceI(String string) {
         char[] charArray = string.toCharArray();
         for (int i = 0; i < string.length(); i++) {
-            //тут вылетает java.lang.IndexOutOfBoundsException : Invalid array range
-            if (charArray[i] == 'и' && i < charArray.length - 1 && VOWELS.contains(charArray[i + 1])) {
+            if (charArray[i] == 'и' && VOWELS.contains(charArray[i + 1])) {
                 charArray[i] = 'i';
             }
         }

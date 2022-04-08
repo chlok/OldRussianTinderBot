@@ -1,18 +1,20 @@
 package ru.liga.oldrussiantinderbot.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
+
 public class User {
     @Id
     private Long id;
@@ -27,16 +29,18 @@ public class User {
     //сэты из видео, таблички он там делает в ручную
     @ManyToMany
     @JoinTable(
-            name = "i_was_chosen",
-            joinColumns = {@JoinColumn(name = "this_user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "choosed_user_id")}
+            name = "user_likes",
+            joinColumns = {@JoinColumn(name = "from_user")},
+            inverseJoinColumns = {@JoinColumn(name = "to_user")}
     )
-    private Set<User> whoChooseMe = new HashSet<>();
+    @JsonIgnore
+    private Set<User> whoLikedMe = new HashSet<>();
     @ManyToMany
     @JoinTable(
-            name = "my_choose",
-            joinColumns = {@JoinColumn(name = "choosed_user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "this_user_id")}
+            name = "user_likes",
+            joinColumns = {@JoinColumn(name = "to_user")},
+            inverseJoinColumns = {@JoinColumn(name = "from_user")}
     )
-    private Set<User> whoIChose = new HashSet<>();
+    @JsonIgnore
+    private Set<User> weLike = new HashSet<>();
 }
