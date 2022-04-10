@@ -1,5 +1,7 @@
 package ru.liga.oldrussiantinderbot.utils;
 
+import org.springframework.stereotype.Component;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -63,12 +65,12 @@ public class TextImageMaker {
             sb = new StringBuilder();
             fontMetrics = graphics.getFontMetrics(bodyFont);
         }
-        if ((lines.size() + 1) * fontMetrics.getHeight() > maxHeight) {
-            bodyFont.deriveFont(bodyFont.getStyle(), (int) (bodyFont.getSize() / 1.5));
-            return getStringLines(text, maxHeight, graphics, maxLineWidth);
-        } else {
-            return lines;
-        }
+//        if ((lines.size() + 1) * fontMetrics.getHeight() > maxHeight) {
+//            bodyFont.deriveFont(bodyFont.getStyle(), (int) (bodyFont.getSize() / 1.5));
+//            return getStringLines(text, maxHeight, graphics, maxLineWidth);
+//        } else {
+//        }
+        return lines;
     }
 
 
